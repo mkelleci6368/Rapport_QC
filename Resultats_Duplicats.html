@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang='fr'>
+<head>
+  <meta charset='utf-8'>
+  <meta name='viewport' content='width=device-width,initial-scale=1'>
+  <style>
+    body { margin:0; font-family:sans-serif }
+    #top-menu { position:fixed; top:0; width:100%; display:flex; gap:20px; justify-content:center; align-items:center; padding:10px; background:#fff; box-shadow:0 2px 5px rgba(0,0,0,.1); z-index:1000 }
+    select { font-size:16px; padding:5px }
+    #content { margin-top:70px }
+    #left-pane { margin:0 50px }
+    .sheet table tr:first-child { display:none }
+    .mini-table { border-collapse:collapse }
+    .mini-table th, .mini-table td { border:1px solid #000; padding:6px 8px; font-size:13px!important; max-width:20ch; white-space:nowrap; overflow:hidden; text-overflow:ellipsis }
+    .mini-table th:first-child, .mini-table td:first-child { max-width:none }
+    .layout { display:grid; grid-template-columns:auto 1fr auto 1fr auto; grid-template-rows:auto auto; column-gap:20px; row-gap:50px; position:relative }
+    .layout-arn { display:grid; grid-template-columns:auto 1fr auto; grid-template-rows:auto auto; column-gap:20px; row-gap:30px; position:relative }
+    .arrow { align-self:center; width:100%; height:2px; background:#000; position:relative }
+    .arrow::after { content:''; position:absolute; right:-6px; top:50%; transform:translateY(-50%); border:6px solid transparent; border-left-color:#000 }
+    /* ADN positions */
+    #tbl-line1 { grid-column:1; grid-row:1 }
+    #arrow1 { grid-column:2; grid-row:1 }
+    #tbl-line7 { grid-column:3; grid-row:1 }
+    #arrow2 { grid-column:4; grid-row:1 }
+    #tbl-line8 { grid-column:5; grid-row:1 }
+    #sub1 { grid-column:2; grid-row:2; justify-self:center }
+    #sub2 { grid-column:4; grid-row:2; justify-self:center }
+    #sub3 { grid-column:5; grid-row:2; justify-self:center }
+    /* ARN positions */
+    #tbl-line1-arn { grid-column:1; grid-row:1 }
+    #arrow-arn { grid-column:2; grid-row:1 }
+    #tbl-line8-arn { grid-column:3; grid-row:1 }
+    #sub0-arn { grid-column:1; grid-row:2; justify-self:center }
+    #sub1-arn { grid-column:2; grid-row:2; justify-self:center }
+    #sub2-arn { grid-column:3; grid-row:2; justify-self:center }
+    .charts { display:grid; grid-template-columns:1fr 1fr; gap:20px; margin:40px 50px 50px }
+    .chart-box { position:relative; background:#fff; border:1px solid #ddd; padding:16px; box-shadow:0 2px 6px rgba(0,0,0,.1); height:400px; overflow:hidden }
+    .chart-title { position:absolute; top:8px; left:8px; font-weight:bold; font-size:14px }
+    .legend { position:absolute; top:40px; right:8px; display:flex; flex-direction:column; align-items:flex-start; gap:6px; margin:0; font-size:12px }
+    .legend-item { display:flex; align-items:center; gap:4px }
+    .legend-swatch { width:12px; height:12px }
+    .tooltip { position:absolute; pointer-events:none; background:rgba(0,0,0,0.7); color:#fff; padding:4px 8px; border-radius:4px; font-size:12px; display:none; z-index:3000 }
+  </style>
+</head>
+<body>
+  <div id='top-menu'><select id='sheetSel'></select><select id='sampleSel'></select></div>
+  <div id='content'><div id='left-pane'>
+    <div class='sheet' id='sheet-ADN' style='display:none'><div class="layout">
+<div id="tbl-line1"><table class="mini-table">
+<tr>
+<td id="ADN!A1" style="background-color: #BFD3C1;border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;font-weight: bold;height: 19pt;text-align: center;vertical-align: center"> </td>
+<td id="ADN!B1" style="background-color: #BFD3C1;border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;font-weight: bold;height: 19pt;text-align: center;vertical-align: center">25R0327CD</td>
+</tr>
+<tr>
+<td id="ADN!A2" style="background-color: #D6E2E9;border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;height: 19pt;text-align: center;vertical-align: center">Nombre total de reads</td>
+<td id="ADN!B2" style="border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;height: 19pt;text-align: center;vertical-align: center">94398972 (100%)</td>
+</tr>
+</table></div>
+<div class="arrow" id="arrow1"></div>
+<div id="tbl-line7"><table class="mini-table">
+<tr>
+<td id="ADN!A1" style="background-color: #BFD3C1;border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;font-weight: bold;height: 19pt;text-align: center;vertical-align: center"> </td>
+<td id="ADN!B1" style="background-color: #BFD3C1;border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;font-weight: bold;height: 19pt;text-align: center;vertical-align: center">25R0327CD</td>
+</tr>
+<tr>
+<td id="ADN!A8" style="background-color: #D6E2E9;border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;height: 19pt;text-align: center;vertical-align: center">Nombre total de reads gardés pour les analyses</td>
+<td id="ADN!B8" style="border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;height: 19pt;text-align: center;vertical-align: center">93739867 (99.30%)</td>
+</tr>
+</table></div>
+<div class="arrow" id="arrow2"></div>
+<div id="tbl-line8"><table class="mini-table">
+<tr>
+<td id="ADN!A1" style="background-color: #BFD3C1;border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;font-weight: bold;height: 19pt;text-align: center;vertical-align: center"> </td>
+<td id="ADN!B1" style="background-color: #BFD3C1;border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;font-weight: bold;height: 19pt;text-align: center;vertical-align: center">25R0327CD</td>
+</tr>
+<tr>
+<td id="ADN!A9" style="background-color: #D6E2E9;border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;height: 19pt;text-align: center;vertical-align: center">Nombre total de reads consensus formés</td>
+<td id="ADN!B9" style="border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;height: 19pt;text-align: center;vertical-align: center">17615660</td>
+</tr>
+</table></div>
+<div class="sub" id="sub1"><table class="mini-table">
+<tr>
+<td id="ADN!A1" style="background-color: #BFD3C1;border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;font-weight: bold;height: 19pt;text-align: center;vertical-align: center"> </td>
+<td id="ADN!B1" style="background-color: #BFD3C1;border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;font-weight: bold;height: 19pt;text-align: center;vertical-align: center">25R0327CD</td>
+</tr>
+<tr>
+<td id="ADN!A3" style="background-color: #D6E2E9;border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;height: 19pt;text-align: center;vertical-align: center">Total de reads filtrés</td>
+<td id="ADN!B3" style="border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;height: 19pt;text-align: center;vertical-align: center">659105 (0.70%)</td>
+</tr>
+<tr>
+<td id="ADN!A6" style="background-color: #D6E2E9;border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;height: 19pt;text-align: center;vertical-align: center">Reads filtrés car non mappés</td>
+<td id="ADN!B6" style="border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;height: 19pt;text-align: center;vertical-align: center">459488</td>
+</tr>
+<tr>
+<td id="ADN!A5" style="background-color: #D6E2E9;border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;height: 19pt;text-align: center;vertical-align: center">Reads filtrés car UMI non corrigeables</td>
+<td id="ADN!B5" style="border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;height: 19pt;text-align: center;vertical-align: center">199617</td>
+</tr>
+<tr>
+<td id="ADN!A4" style="background-color: #D6E2E9;border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;height: 19pt;text-align: center;vertical-align: center">Reads filtrés en raison d'un artefact des UMI ( all-G )</td>
+<td id="ADN!B4" style="border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;height: 19pt;text-align: center;vertical-align: center">0</td>
+</tr>
+<tr>
+<td id="ADN!A7" style="background-color: #D6E2E9;border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;height: 19pt;text-align: center;vertical-align: center">Reads filtrés duplex/simplex</td>
+<td id="ADN!B7" style="border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;height: 19pt;text-align: center;vertical-align: center">0</td>
+</tr>
+</table></div>
+<div class="sub" id="sub2"><table class="mini-table">
+<tr>
+<td id="ADN!A1" style="background-color: #BFD3C1;border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;font-weight: bold;height: 19pt;text-align: center;vertical-align: center"> </td>
+<td id="ADN!B1" style="background-color: #BFD3C1;border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;font-weight: bold;height: 19pt;text-align: center;vertical-align: center">25R0327CD</td>
+</tr>
+<tr>
+<td id="ADN!A13" style="background-color: #D6E2E9;border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;height: 19pt;text-align: center;vertical-align: center">Nombre total de reads singletons</td>
+<td id="ADN!B13" style="border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;height: 19pt;text-align: center;vertical-align: center">7199669</td>
+</tr>
+<tr>
+<td id="ADN!A14" style="background-color: #D6E2E9;border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;height: 19pt;text-align: center;vertical-align: center">Nombre total de reads duplicats</td>
+<td id="ADN!B14" style="border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;height: 19pt;text-align: center;vertical-align: center">29038821</td>
+</tr>
+<tr>
+<td id="ADN!A15" style="background-color: #D6E2E9;border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;height: 19pt;text-align: center;vertical-align: center">Taux de duplicats (%)</td>
+<td id="ADN!B15" style="border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;height: 19pt;text-align: center;vertical-align: center">30.98</td>
+</tr>
+</table></div>
+<div class="sub" id="sub3"><table class="mini-table">
+<tr>
+<td id="ADN!A1" style="background-color: #BFD3C1;border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;font-weight: bold;height: 19pt;text-align: center;vertical-align: center"> </td>
+<td id="ADN!B1" style="background-color: #BFD3C1;border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;font-weight: bold;height: 19pt;text-align: center;vertical-align: center">25R0327CD</td>
+</tr>
+<tr>
+<td id="ADN!A10" style="background-color: #D6E2E9;border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;height: 19pt;text-align: center;vertical-align: center">Mean family size</td>
+<td id="ADN!B10" style="border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;height: 19pt;text-align: center;vertical-align: center">2.65</td>
+</tr>
+<tr data-bins="[0, 7199669, 3519105, 2423619, 1639708, 1073103, 683039, 426110, 261967, 158460, 95871, 57241, 33447, 19700, 11248, 6166, 3444, 1857, 987, 456, 250, 123, 53, 21, 12, 0, 2, 1, 0, 1]">
+<td id="ADN!A11" style="background-color: #D6E2E9;border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;height: 19pt;text-align: center;vertical-align: center">Histogramme umi_size</td>
+<td id="ADN!B11" style="border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;height: 19pt;text-align: center;vertical-align: center">0,7199669,3519105,2423619,1639708,1073103,683039,426110,261967,158460,95871,57241,33447,19700,11248,6166,3444,1857,987,456,250,123,53,21,12,0,2,1,0,1</td>
+</tr>
+<tr>
+<td id="ADN!A12" style="background-color: #D6E2E9;border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;height: 19pt;text-align: center;vertical-align: center">Statistiques distribution umi_size</td>
+<td id="ADN!B12" style="border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;height: 19pt;text-align: center;vertical-align: center"><span>[0-1]: 7199669 (40.87%)</span><br/><span>[2-5]: 8655535 (49.14%)</span><br/><span>[6-9]: 1529576 (8.68%)</span><br/><span>[10+]: 230880 (1.31%)</span></td>
+</tr>
+</table></div>
+</div></div>
+    <div class='sheet' id='sheet-ARN' style='display:none'><div class="layout-arn">
+<div id="tbl-line1-arn"><table class="mini-table">
+<tr>
+<td id="ARN!A1" style="background-color: #BFD3C1;border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;font-weight: bold;height: 19pt;text-align: center;vertical-align: center"> </td>
+<td id="ARN!B1" style="background-color: #BFD3C1;border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;font-weight: bold;height: 19pt;text-align: center;vertical-align: center">25R0864BR</td>
+</tr>
+<tr>
+<td id="ARN!A2" style="background-color: #D6E2E9;border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;height: 19pt;text-align: center;vertical-align: center">Nombre total de reads</td>
+<td id="ARN!B2" style="border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;height: 19pt;text-align: center;vertical-align: center">28147522 (100%)</td>
+</tr>
+</table></div>
+<div class="arrow" id="arrow-arn"></div>
+<div id="tbl-line8-arn"><table class="mini-table">
+<tr>
+<td id="ARN!A1" style="background-color: #BFD3C1;border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;font-weight: bold;height: 19pt;text-align: center;vertical-align: center"> </td>
+<td id="ARN!B1" style="background-color: #BFD3C1;border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;font-weight: bold;height: 19pt;text-align: center;vertical-align: center">25R0864BR</td>
+</tr>
+<tr>
+<td id="ARN!A5" style="background-color: #D6E2E9;border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;height: 19pt;text-align: center;vertical-align: center">Nombre total de reads gardés pour les analyses</td>
+<td id="ARN!B5" style="border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;height: 19pt;text-align: center;vertical-align: center">27028868 (96.03%)</td>
+</tr>
+</table></div>
+<div class="sub0-arn" id="sub0-arn"><table class="mini-table">
+<tr>
+<td id="ARN!A1" style="background-color: #BFD3C1;border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;font-weight: bold;height: 19pt;text-align: center;vertical-align: center"> </td>
+<td id="ARN!B1" style="background-color: #BFD3C1;border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;font-weight: bold;height: 19pt;text-align: center;vertical-align: center">25R0864BR</td>
+</tr>
+<tr>
+<td id="ARN!A7" style="background-color: #D6E2E9;border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;height: 19pt;text-align: center;vertical-align: center">Nombre total de reads singletons</td>
+<td id="ARN!B7" style="border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;height: 19pt;text-align: center;vertical-align: center">5258306</td>
+</tr>
+<tr>
+<td id="ARN!A6" style="background-color: #D6E2E9;border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;height: 19pt;text-align: center;vertical-align: center">Nombre total de reads duplicats</td>
+<td id="ARN!B6" style="border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;height: 19pt;text-align: center;vertical-align: center">22889216</td>
+</tr>
+<tr>
+<td id="ARN!A8" style="background-color: #D6E2E9;border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;height: 19pt;text-align: center;vertical-align: center">Taux de duplicats (%)</td>
+<td id="ARN!B8" style="border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;height: 19pt;text-align: center;vertical-align: center">81.32</td>
+</tr>
+</table></div>
+<div class="sub1-arn" id="sub1-arn"><table class="mini-table">
+<tr>
+<td id="ARN!A1" style="background-color: #BFD3C1;border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;font-weight: bold;height: 19pt;text-align: center;vertical-align: center"> </td>
+<td id="ARN!B1" style="background-color: #BFD3C1;border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;font-weight: bold;height: 19pt;text-align: center;vertical-align: center">25R0864BR</td>
+</tr>
+<tr>
+<td id="ARN!A3" style="background-color: #D6E2E9;border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;height: 19pt;text-align: center;vertical-align: center">Reads filtrés après echec QC</td>
+<td id="ARN!B3" style="border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;height: 19pt;text-align: center;vertical-align: center">0 (0.0%)</td>
+</tr>
+<tr>
+<td id="ARN!A4" style="background-color: #D6E2E9;border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;height: 19pt;text-align: center;vertical-align: center">Reads filtrés car non mappés</td>
+<td id="ARN!B4" style="border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;height: 19pt;text-align: center;vertical-align: center">1118654 (3.97%)</td>
+</tr>
+</table></div>
+<div class="sub2-arn" id="sub2-arn"><table class="mini-table">
+<tr>
+<td id="ARN!A1" style="background-color: #BFD3C1;border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;font-weight: bold;height: 19pt;text-align: center;vertical-align: center"> </td>
+<td id="ARN!B1" style="background-color: #BFD3C1;border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;font-weight: bold;height: 19pt;text-align: center;vertical-align: center">25R0864BR</td>
+</tr>
+<tr data-bins="[1763801]">
+<td id="ARN!A9" style="background-color: #D6E2E9;border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;height: 19pt;text-align: center;vertical-align: center">Statistiques distribution MAPQ reads</td>
+<td id="ARN!B9" style="border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;height: 19pt;text-align: center;vertical-align: center"><span>[0-10]: 1763801 (6.27%)</span><br/><span>[10-20]: 403058 (1.43%)</span><br/><span>[20-30]: 242683 (0.86%)</span><br/><span>[30-40]: 411301 (1.46%)</span><br/><span>[40+]: 24208025 (86.0%)</span></td>
+</tr>
+</table></div>
+</div></div>
+    </div>
+    <div class='charts'>
+      <div id='pie-chart' class='chart-box'>
+        <div class='chart-title'>Répartition des reads filtrés vs gardés</div>
+        <div class='legend' id='pie-legend'></div>
+      </div>
+      <div id='hist-chart' class='chart-box'>
+        <div class='chart-title'>Distribution des reads consensus selon leur taille UMI</div>
+        <div class='legend' id='hist-legend'></div>
+      </div>
+    </div>
+  </div>
+  <div id='tooltip' class='tooltip'></div>
+  <script>
+    const sheetSamples = {"ADN": ["25R0327CD"], "ARN": ["25R0864BR"]};
+    const sheetEls = document.querySelectorAll('.sheet');
+    const sheetSel = document.getElementById('sheetSel');
+    const sampleSel = document.getElementById('sampleSel');
+    function showSheet(name) {
+      sheetEls.forEach(el => el.style.display = el.id === 'sheet-' + name ? 'block' : 'none');
+      sampleSel.innerHTML = '';
+      sheetSamples[name].forEach((s, i) => {
+        let o = new Option(s, s);
+        if (i === 0) o.selected = true;
+        sampleSel.add(o);
+      });
+    }
+    Object.keys(sheetSamples).forEach((n, i) => {
+      let o = new Option(n.toUpperCase(), n);
+      if (i === 0) o.selected = true;
+      sheetSel.add(o);
+    });
+    sheetSel.onchange = () => showSheet(sheetSel.value);
+    showSheet(sheetSel.value);
+    function getMetric(label) {
+      const selectors = ['.layout tr', '.layout-arn tr'];
+      for (let sel of selectors) {
+        for (let r of document.querySelectorAll(sel)) {
+          const f = r.querySelector('th,td');
+          if (f && f.textContent.trim() === label) {
+            const txt = f.nextElementSibling.textContent.trim();
+            const num = parseInt(txt.split(' ')[0].replace(/\D/g, ''));
+            return isNaN(num) ? undefined : num;
+          }
+        }
+      }
+    }
+    function showTip(e, html) {
+      const t = document.getElementById('tooltip');
+      t.innerHTML = html; t.style.left = e.pageX + 10 + 'px'; t.style.top = e.pageY + 10 + 'px'; t.style.display = 'block';
+    }
+    function hideTip() { document.getElementById('tooltip').style.display = 'none'; }
+    (function drawPie() {
+      const total = getMetric('Nombre total de reads');
+      const kept = getMetric('Nombre total de reads gardés pour les analyses');
+      if (total == null || kept == null) return;
+      const data = [total - kept, kept];
+      const labels = ['Filtrés', 'Gardés'];
+      const colors = ['hsl(0,70%,60%)', 'hsl(60,70%,60%)'];
+      const box = document.getElementById('pie-chart');
+      const W = box.clientWidth; const H = 400; const ns = 'http://www.w3.org/2000/svg';
+      const svg = document.createElementNS(ns, 'svg');
+      svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+      const g = document.createElementNS(ns, 'g');
+      g.setAttribute('transform', `translate(${W/2},${H/2})`);
+      svg.appendChild(g);
+      let start = 0; const sum = data.reduce((a,b)=>a+b,0);
+      data.forEach((d,i)=>{
+        const ang = d/sum*2*Math.PI; const R = Math.min(W,H)/2-20;
+        const x1 = Math.cos(start)*R, y1 = Math.sin(start)*R;
+        const x2 = Math.cos(start+ang)*R, y2 = Math.sin(start+ang)*R;
+        const f = ang > Math.PI ? 1 : 0;
+        const path = `M0,0 L${x1},${y1} A${R},${R} 0 ${f} 1 ${x2},${y2} Z`;
+        const sl = document.createElementNS(ns, 'path');
+        sl.setAttribute('d', path); sl.setAttribute('fill', colors[i]);
+        sl.style.cursor = 'pointer';
+        sl.addEventListener('mousemove', e => showTip(e, `${labels[i]} : ${d} (${(d/sum*100).toFixed(1)}%)`));
+        sl.addEventListener('mouseleave', hideTip);
+        g.appendChild(sl);
+        const pct = (d/sum*100).toFixed(1);
+        const li = document.createElement('div'); li.className = 'legend-item';
+        const sw = document.createElement('div'); sw.className = 'legend-swatch'; sw.style.background = colors[i];
+        li.append(sw, `${labels[i]} : ${d} (${pct}%)`);
+        document.getElementById('pie-legend').appendChild(li);
+        start += ang;
+      });
+      box.appendChild(svg);
+    })();
+    (function drawHist() {
+      const row = document.querySelector('.layout tr[data-bins]') || document.querySelector('.layout-arn tr[data-bins]');
+      if (!row) return;
+      const bins = JSON.parse(row.getAttribute('data-bins'));
+      const box = document.getElementById('hist-chart');
+      const W = box.clientWidth; const H = 400; const ns = 'http://www.w3.org/2000/svg';
+      const svg = document.createElementNS(ns, 'svg');
+      svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+      const maxV = Math.max(...bins); const topY = 20; const botY = H-40;
+      // élargir la marge gauche pour éviter le découpage des graduations
+      const x0 = 60;
+      [0, Math.ceil(maxV/2), maxV].forEach(v=>{
+        const y = botY - (v/maxV)*(botY-topY);
+        const l = document.createElementNS(ns, 'line');
+        l.setAttribute('x1', x0-5); l.setAttribute('y1', y);
+        l.setAttribute('x2', x0); l.setAttribute('y2', y); l.setAttribute('stroke', '#000');
+        svg.appendChild(l);
+        const t = document.createElementNS(ns, 'text');
+        t.setAttribute('x', x0-8); t.setAttribute('y', y+4); t.setAttribute('font-size', '10');
+        t.setAttribute('text-anchor', 'end'); t.textContent = v; svg.appendChild(t);
+      });
+      const axis = document.createElementNS(ns, 'line');
+      axis.setAttribute('x1', x0); axis.setAttribute('y1', topY);
+      axis.setAttribute('x2', x0); axis.setAttribute('y2', botY); axis.setAttribute('stroke', '#000');
+      svg.appendChild(axis);
+      const avail = W - (x0+20); const bw = avail / bins.length;
+      bins.forEach((v,i)=>{
+        const h = (v/maxV)*(botY-topY); const x = x0+10+i*bw; const y = botY-h;
+        const r = document.createElementNS(ns, 'rect');
+        r.setAttribute('x', x); r.setAttribute('y', y); r.setAttribute('width', bw-2); r.setAttribute('height', h);
+        r.setAttribute('fill', '#4285F4'); r.style.cursor = 'pointer';
+        r.addEventListener('mousemove', e => showTip(e, `Intervalle ${i} : ${v}`));
+        r.addEventListener('mouseleave', hideTip); svg.appendChild(r);
+        const txt = document.createElementNS(ns, 'text');
+        txt.setAttribute('x', x + bw/2); txt.setAttribute('y', botY+14);
+        txt.setAttribute('font-size', '10'); txt.setAttribute('text-anchor', 'middle'); txt.textContent = i;
+        svg.appendChild(txt);
+      });
+      const li2 = document.createElement('div'); li2.className = 'legend-item';
+      const sw2 = document.createElement('div'); sw2.className = 'legend-swatch'; sw2.style.background = '#4285F4';
+      li2.append(sw2, 'Nombre par intervalle'); document.getElementById('hist-legend').appendChild(li2);
+      box.appendChild(svg);
+    })();
+</script>
+</body>
+</html>
