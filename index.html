@@ -20,29 +20,35 @@
 
   <!-- Barre de navigation -->
   <div id="container">
-    <!-- Bouton Infos QC -->
+    <!-- 1. Bouton Infos QC -->
     <button data-page="MetricsComparison">Informations qualité run</button>
 
-    <!-- Menu Variants -->
+    <!-- 2. Bouton Duplicats -->
+    <button data-page="Duplicats">Détails duplicats</button>
+
+    <!-- 3. Menu Variants -->
     <select id="variantSelect">
       <option value="">Variants</option>
-            <option value="24H2193-2-6-0">24H2193-2-6-0</option>
+      <option value="24H2193-2-6-0">24H2193-2-6-0</option>
     </select>
 
-    <!-- Menu Low coverage -->
+    <!-- 4. Menu Low coverage -->
     <select id="lowCoverageSelect">
       <option value="">Low coverage 50X</option>
-            <option value="24H2193D-2-6-0">24H2193D-2-6-0</option>
-            <option value="24H2193R-2-6-0">24H2193R-2-6-0</option>
+      <option value="24H2193D-2-6-0">24H2193D-2-6-0</option>
+      <option value="24H2193R-2-6-0">24H2193R-2-6-0</option>
     </select>
-
-    <!-- Bouton Duplicats -->
-    <button data-page="Duplicats">Détails duplicats</button>
   </div>
 
   <script>
     // Mapping clé->fichier
-    const pages = {"MetricsComparison": "MetricsComparison.html", "Duplicats": "Resultats_duplicats.html", "24H2193-2-6-0": "24H2193-2-6-0_CombinedVariantOutput_CombinedVariantOutput_DNA.html", "24H2193R-2-6-0": "24H2193R-2-6-0_coverage.html", "24H2193D-2-6-0": "24H2193D-2-6-0_coverage.html"};
+    const pages = {
+      "MetricsComparison": "MetricsComparison.html",
+      "Duplicats": "Resultats_duplicats.html",
+      "24H2193-2-6-0": "24H2193-2-6-0_CombinedVariantOutput_CombinedVariantOutput_DNA.html",
+      "24H2193R-2-6-0": "24H2193R-2-6-0_coverage.html",
+      "24H2193D-2-6-0": "24H2193D-2-6-0_coverage.html"
+    };
     const frame = document.getElementById('contentFrame');
 
     function showPage(key) {
@@ -50,16 +56,18 @@
       if (url) frame.src = url;
     }
 
-    // Evenements
+    // Événements pour les boutons
     document.querySelectorAll('button[data-page]').forEach(btn =>
       btn.addEventListener('click', () => showPage(btn.dataset.page))
     );
 
+    // Événement pour le menu Variants
     document.getElementById('variantSelect').addEventListener('change', e => {
       if (e.target.value) showPage(e.target.value);
       e.target.selectedIndex = 0;
     });
 
+    // Événement pour le menu Low coverage
     document.getElementById('lowCoverageSelect').addEventListener('change', e => {
       if (e.target.value) showPage(e.target.value);
       e.target.selectedIndex = 0;
