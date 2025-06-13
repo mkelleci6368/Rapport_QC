@@ -63,7 +63,7 @@
 <td id="ADN!B1" style="background-color: #BFD3C1;border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;font-weight: bold;height: 19pt;text-align: center;vertical-align: center">25R0327CD</td>
 </tr>
 <tr>
-<td id="ADN!A8" style="background-color: #D6E2E9;border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;height: 19pt;text-align: center;vertical-align: center">Nombre total de reads gardés pour les analyses</td>
+<td id="ADN!A8" style="background-color: #D6E2E9;border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;height: 19pt;text-align: center;vertical-align: center">Nombre total de reads valides pour les analyses</td>
 <td id="ADN!B8" style="border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;height: 19pt;text-align: center;vertical-align: center">93739867 (99.30%)</td>
 </tr>
 </table></div>
@@ -159,7 +159,7 @@
 <td id="ARN!B1" style="background-color: #BFD3C1;border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;font-weight: bold;height: 19pt;text-align: center;vertical-align: center">25R0864BR</td>
 </tr>
 <tr>
-<td id="ARN!A5" style="background-color: #D6E2E9;border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;height: 19pt;text-align: center;vertical-align: center">Nombre total de reads gardés pour les analyses</td>
+<td id="ARN!A5" style="background-color: #D6E2E9;border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;height: 19pt;text-align: center;vertical-align: center">Nombre total de reads valides pour les analyses</td>
 <td id="ARN!B5" style="border-bottom-style: solid;border-bottom-width: 1px;border-collapse: collapse;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;font-size: 10.0px;height: 19pt;text-align: center;vertical-align: center">27028868 (96.03%)</td>
 </tr>
 </table></div>
@@ -209,7 +209,7 @@
     </div>
     <div class='charts'>
       <div id='pie-chart' class='chart-box'>
-        <div class='chart-title'>Répartition des reads filtrés vs gardés</div>
+        <div class='chart-title'>Répartition des reads filtrés vs valides</div>
         <div class='legend' id='pie-legend'></div>
       </div>
       <div id='hist-chart' class='chart-box'>
@@ -260,10 +260,10 @@
     function hideTip() { document.getElementById('tooltip').style.display = 'none'; }
     (function drawPie() {
       const total = getMetric('Nombre total de reads');
-      const kept = getMetric('Nombre total de reads gardés pour les analyses');
+      const kept = getMetric('Nombre total de reads valides pour les analyses');
       if (total == null || kept == null) return;
       const data = [total - kept, kept];
-      const labels = ['Filtrés', 'Gardés'];
+      const labels = ['Filtrés', 'Valides'];
       const colors = ['hsl(0,70%,60%)', 'hsl(60,70%,60%)'];
       const box = document.getElementById('pie-chart');
       const W = box.clientWidth; const H = 400; const ns = 'http://www.w3.org/2000/svg';
